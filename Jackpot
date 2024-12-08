@@ -1,0 +1,75 @@
+package Meandyou;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.Random;
+//import java.util.random.*;
+
+@SuppressWarnings("serial")
+class Jackpot extends JFrame implements ActionListener {
+	 JButton bt;
+	 JTextField t;
+	 int random;
+	 int count;
+	 public Jackpot()
+	 {
+		  bt=new JButton("Guess");
+		 t=new JTextField(20);
+		 add(new JLabel("Enter your guess (1-100):"));
+		 add(bt);
+		 add(t);
+		 
+		 setLayout(new FlowLayout());
+		 setVisible(true);
+		 setSize(500,500);
+		 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
+		 bt.addActionListener(this);
+		 Random numm=new Random();
+		 random=numm.nextInt(100)+1;
+		 count=0;
+		 
+	 }
+	 public void actionPerformed(ActionEvent e)
+	 {
+		 try {
+			 count++;
+			 int unum=Integer.parseInt(t.getText());
+			 if(unum==random)
+			 {
+				   JOptionPane.showMessageDialog(this,"Correct guess in "+count+" count",getTitle(), JOptionPane.INFORMATION_MESSAGE);
+				 Random numm=new Random();
+				 random=numm.nextInt(100)+1;
+				 count=0;
+				 
+			 }
+			 else if(unum<random)
+			 {
+				 JOptionPane.showMessageDialog(this,
+	                        "Your guess is too low. Try again.",
+	                        "Hint",
+	                        JOptionPane.WARNING_MESSAGE); 
+			 }
+			 else
+			 {
+				 JOptionPane.showMessageDialog(this,
+	                        "Your guess is too high. Try again.",
+	                        "Hint",
+	                        JOptionPane.WARNING_MESSAGE);
+			 }
+			 t.setText("");
+			 
+		 }catch(NumberFormatException ex)
+		 {
+			 JOptionPane.showMessageDialog(this,
+	                    "Please enter a valid number.",
+	                    "Error",
+	                    JOptionPane.ERROR_MESSAGE);
+		 }
+		
+	 }
+	  public static void main(String[] args)
+		 {
+			 new Jackpot();
+		 }
+	 
+}
